@@ -1,15 +1,9 @@
 package de.rmrw.ReversiKata.spikes;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import de.rmrw.ReversiKata.model.IFSpielModel;
 import de.rmrw.ReversiKata.views.IFSpielView;
-import de.rmrw.ReversiKata.views.SpielfeldFeldZustand;
 
 public class SpielView extends BorderPane implements IFSpielView {
 
@@ -26,6 +20,14 @@ public class SpielView extends BorderPane implements IFSpielView {
 		comboBoxView = new ComboBoxView(model, 10);
 		
 		this.setRight(comboBoxView);
+	}
+
+	public SpielfeldView getSpielfeldView() {
+		return spielfeldView;
+	}
+
+	public ComboBoxView getComboBoxView() {
+		return comboBoxView;
 	}
 
 	public IFSpielModel getModel() {
