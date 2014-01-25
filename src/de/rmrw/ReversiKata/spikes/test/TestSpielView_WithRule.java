@@ -15,6 +15,7 @@ import de.rmrw.ReversiKata.spikes.SpielModel;
 import de.rmrw.ReversiKata.spikes.SpielView;
 import de.rmrw.ReversiKata.spikes.SpielfeldView;
 import de.rmrw.ReversiKata.views.JavaFXSpielfeldFeld;
+import de.rmrw.ReversiKata.views.JavaFXSpielfeldFeldView;
 import de.rmrw.ReversiKata.views.SpielfeldFeldZustand;
 import JavaFXUnitTestHelpers.JavaFXThreadingRule;
 
@@ -47,15 +48,15 @@ public class TestSpielView_WithRule {
 	@Test
 	public void testInitialization() {
 		SpielfeldView spielfeldView = spielView.getSpielfeldView();
-		JavaFXSpielfeldFeld feld1 = spielfeldView.getFeld1();
-		Assert.assertEquals(Color.TRANSPARENT,feld1.getCircleColor());
+		JavaFXSpielfeldFeldView feld1 = spielfeldView.getFeld1();
+		Assert.assertEquals(Color.TRANSPARENT,feld1.getActiveColor());
 	}
 
 	
 	@Test
 	public final void testWechsleZustand() {
 		SpielfeldView spielfeldView = spielView.getSpielfeldView();
-		JavaFXSpielfeldFeld feld1 = spielfeldView.getFeld1();
+		JavaFXSpielfeldFeldView feld1 = spielfeldView.getFeld1();
 		ComboBoxView comboBoxView =  spielView.getComboBoxView();
 		ComboBox<String> comboBox1 = comboBoxView.getComboBox1();
 		try {
@@ -69,7 +70,7 @@ public class TestSpielView_WithRule {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		Assert.assertEquals(Color.BLUE,feld1.getCircleColor());
+		Assert.assertEquals(Color.BLUE,feld1.getActiveColor());
 	}
 	
 

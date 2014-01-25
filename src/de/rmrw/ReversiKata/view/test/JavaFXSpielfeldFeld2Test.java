@@ -1,37 +1,32 @@
 package de.rmrw.ReversiKata.view.test;
 
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.paint.Color;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.rmrw.ReversiKata.model.IFSpielModel;
-import de.rmrw.ReversiKata.views.JavaFXSpielfeldFeld;
+import de.rmrw.ReversiKata.views.JavaFXSpielfeldFeld2;
 import de.rmrw.ReversiKata.views.JavaFXSpielfeldFeldProperties;
 import de.rmrw.ReversiKata.views.SpielfeldFeldZustand;
 
 
-public class TestJavaFXSpielfeldFeld {
+public class JavaFXSpielfeldFeld2Test {
 	
 	private static final Color ANGEDEUTETEFARBESPIELER2 = Color.LIGHTCORAL;
 	private static final Color ANGEDEUTETEFARBESPIELER1 = Color.LIGHTBLUE;
 	private static final Color FARBESPIELER2 = Color.RED;
 	private static final Color FARBESPIELER1 = Color.BLUE;
 	private static final Color GRUNDFARBE = Color.BEIGE;
-	private JavaFXSpielfeldFeld feld = null;
-	private IFSpielModel mockModel = null;
+	private JavaFXSpielfeldFeld2 feld = null;
 	
 	private JavaFXSpielfeldFeldProperties 	spielfeldFeldProperties = null;
+	private boolean changed=false;
 	
 	@Before
 	public void setUp() throws Exception {
-		mockModel = mock(IFSpielModel.class);
 		spielfeldFeldProperties = new JavaFXSpielfeldFeldProperties(50,            // Groesse
 																	GRUNDFARBE,   // Grundfarbe
 																	FARBESPIELER1,    // Farbe Spieler1
@@ -39,11 +34,18 @@ public class TestJavaFXSpielfeldFeld {
 																	ANGEDEUTETEFARBESPIELER1, // Angedeutete Farbe Sp1
 																	ANGEDEUTETEFARBESPIELER2  // Angedeutete Farbe Sp2
 																	);
-		feld = new JavaFXSpielfeldFeld(mockModel,     // Modell zum View
-										0,             // Zeile
-										0,             // Spalte
-										spielfeldFeldProperties
+		feld = new JavaFXSpielfeldFeld2(spielfeldFeldProperties
 										);
+		feld.addListener(new ChangeListener<SpielfeldFeldZustand>() {
+ 
+			@Override
+			public void changed(
+					ObservableValue<? extends SpielfeldFeldZustand> observable,
+					SpielfeldFeldZustand oldValue, SpielfeldFeldZustand newValue) {
+				changed=true;
+				
+			}    
+        });
 	}
 
 	@Test
@@ -57,22 +59,22 @@ public class TestJavaFXSpielfeldFeld {
 		Assert.assertEquals(Color.TRANSPARENT, feld.getCircleColor());
 		feld.onMouseExited();
 		
-		when(mockModel.getFeldZustand(0, 0)).thenReturn(SpielfeldFeldZustand.LEER_UND_BESETZBAR1);
-		feld.update();
+		//when(mockModel.getFeldZustand(0, 0)).thenReturn(SpielfeldFeldZustand.LEER_UND_BESETZBAR1);
+		feld.setZustand(SpielfeldFeldZustand.LEER_UND_BESETZBAR1);
 		feld.onMouseEnter();
 		Assert.assertEquals(ANGEDEUTETEFARBESPIELER1, feld.getCircleColor());
 		feld.onMouseExited();
 		Assert.assertEquals(Color.TRANSPARENT, feld.getCircleColor());
 
-		when(mockModel.getFeldZustand(0, 0)).thenReturn(SpielfeldFeldZustand.LEER_UND_BESETZBAR2);
-		feld.update();
+//		when(mockModel.getFeldZustand(0, 0)).thenReturn(SpielfeldFeldZustand.LEER_UND_BESETZBAR2);
+		feld.setZustand(SpielfeldFeldZustand.LEER_UND_BESETZBAR2);
 		feld.onMouseEnter();
 		Assert.assertEquals(ANGEDEUTETEFARBESPIELER2, feld.getCircleColor());
 		feld.onMouseExited();
 		Assert.assertEquals(Color.TRANSPARENT, feld.getCircleColor());
 
-		when(mockModel.getFeldZustand(0, 0)).thenReturn(SpielfeldFeldZustand.BESETZT1);
-		feld.update();
+//		when(mockModel.getFeldZustand(0, 0)).thenReturn(SpielfeldFeldZustand.BESETZT1);
+		feld.setZustand(SpielfeldFeldZustand.BESETZT1);
 		Assert.assertEquals(FARBESPIELER1, feld.getCircleColor());
 		feld.onMouseEnter();
 		Assert.assertEquals(FARBESPIELER1, feld.getCircleColor());
@@ -83,11 +85,15 @@ public class TestJavaFXSpielfeldFeld {
 	@Test
 	public final void testOnMousePressed() {
 		feld.onMousePressed();
-		verify(mockModel, times(0)).besetzeFeld(anyInt(),anyInt(),anyInt());
-		when(mockModel.getFeldZustand(0, 0)).thenReturn(SpielfeldFeldZustand.LEER_UND_BESETZBAR2);
-		feld.update();
+//		verify(mockModel, times(0)).besetzeFeld(anyInt(),anyInt(),anyInt());
+		Assert.assertFalse(changed);
+		
+//		when(mockModel.getFeldZustand(0, 0)).thenReturn(SpielfeldFeldZustand.LEER_UND_BESETZBAR2);
+		feld.setZustand(SpielfeldFeldZustand.LEER_UND_BESETZBAR2);
 		feld.onMousePressed();
-		verify(mockModel).besetzeFeld(0,0,2);
+//		verify(mockModel).besetzeFeld(0,0,2);
+		Assert.assertTrue(changed);
+		Assert.assertEquals(SpielfeldFeldZustand.BESETZT2, feld.getZustand());
 	}
 	
 }

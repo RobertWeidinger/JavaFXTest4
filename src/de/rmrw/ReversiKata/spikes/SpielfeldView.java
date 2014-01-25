@@ -2,7 +2,9 @@ package de.rmrw.ReversiKata.spikes;
 
 import de.rmrw.ReversiKata.model.IFSpielModel;
 import de.rmrw.ReversiKata.views.JavaFXSpielfeldFeld;
+import de.rmrw.ReversiKata.views.JavaFXSpielfeldFeld2;
 import de.rmrw.ReversiKata.views.JavaFXSpielfeldFeldProperties;
+import de.rmrw.ReversiKata.views.JavaFXSpielfeldFeldView;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -14,15 +16,15 @@ public class SpielfeldView extends GridPane {
 	private static final Color FARBESPIELER2 = Color.RED;
 	private static final Color FARBESPIELER1 = Color.BLUE;
 	private static final Color GRUNDFARBE = Color.DARKGRAY;
-	private JavaFXSpielfeldFeld feld1;
-	private JavaFXSpielfeldFeld feld2;
+	private JavaFXSpielfeldFeldView feld1;
+	private JavaFXSpielfeldFeldView feld2;
 
 	public SpielfeldView(IFSpielModel model) {
 		super();
 		this.setHgap(4);
 		this.setVgap(4);
 	
-		feld1 = new JavaFXSpielfeldFeld(model,         // Modell zum View
+		feld1 = new JavaFXSpielfeldFeldView(model,         // Modell zum View
 										0,             // Zeile
 										0,             // Spalte
 										new JavaFXSpielfeldFeldProperties( 30,            // Groesse
@@ -33,11 +35,12 @@ public class SpielfeldView extends GridPane {
 																			ANGEDEUTETEFARBESPIELER2  // Angedeutete Farbe Sp2
 																			)
 								);
+		feld1.init();
 		getChildren().add(feld1);
 		GridPane.setColumnIndex(feld1, 0);
 		GridPane.setRowIndex(feld1, 0);
 
-		feld2 =  new JavaFXSpielfeldFeld(model,         // Modell zum View
+		feld2 =  new JavaFXSpielfeldFeldView(model,         // Modell zum View
 										0,             // Zeile
 										1,             // Spalte
 										new JavaFXSpielfeldFeldProperties( 30,            // Groesse
@@ -48,24 +51,25 @@ public class SpielfeldView extends GridPane {
 												ANGEDEUTETEFARBESPIELER2  // Angedeutete Farbe Sp2
 												)
 										);
+		feld2.init();
 		getChildren().add(feld2);
 		GridPane.setColumnIndex(feld2, 1);
 		GridPane.setRowIndex(feld2, 0);
 
 	}
 	
-	public JavaFXSpielfeldFeld getFeld1() {
+	public JavaFXSpielfeldFeldView getFeld1() {
 		return feld1;
 	}
 
-	public JavaFXSpielfeldFeld getFeld2() {
+	public JavaFXSpielfeldFeldView getFeld2() {
 		return feld2;
 	}
 
 	public void update(){
 		System.out.println("SpielfeldView.update()");
 		for (Node n : getChildren()) {
-			((JavaFXSpielfeldFeld)n).update();
+			((JavaFXSpielfeldFeldView)n).update();
 		}
 	}
 
