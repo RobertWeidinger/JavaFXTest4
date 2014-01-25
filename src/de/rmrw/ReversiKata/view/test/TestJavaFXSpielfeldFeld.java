@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import de.rmrw.ReversiKata.model.IFSpielModel;
 import de.rmrw.ReversiKata.views.JavaFXSpielfeldFeld;
+import de.rmrw.ReversiKata.views.JavaFXSpielfeldFeldProperties;
 import de.rmrw.ReversiKata.views.SpielfeldFeldZustand;
 
 
@@ -26,18 +27,22 @@ public class TestJavaFXSpielfeldFeld {
 	private JavaFXSpielfeldFeld feld = null;
 	private IFSpielModel mockModel = null;
 	
+	private JavaFXSpielfeldFeldProperties 	spielfeldFeldProperties = null;
+	
 	@Before
 	public void setUp() throws Exception {
 		mockModel = mock(IFSpielModel.class);
+		spielfeldFeldProperties = new JavaFXSpielfeldFeldProperties(50,            // Groesse
+																	GRUNDFARBE,   // Grundfarbe
+																	FARBESPIELER1,    // Farbe Spieler1
+																	FARBESPIELER2,     // Farbe Spieler2
+																	ANGEDEUTETEFARBESPIELER1, // Angedeutete Farbe Sp1
+																	ANGEDEUTETEFARBESPIELER2  // Angedeutete Farbe Sp2
+																	);
 		feld = new JavaFXSpielfeldFeld(mockModel,     // Modell zum View
 										0,             // Zeile
 										0,             // Spalte
-										50,            // Groesse
-										GRUNDFARBE,   // Grundfarbe
-										FARBESPIELER1,    // Farbe Spieler1
-										FARBESPIELER2,     // Farbe Spieler2
-										ANGEDEUTETEFARBESPIELER1, // Angedeutete Farbe Sp1
-										ANGEDEUTETEFARBESPIELER2  // Angedeutete Farbe Sp2
+										spielfeldFeldProperties
 										);
 	}
 

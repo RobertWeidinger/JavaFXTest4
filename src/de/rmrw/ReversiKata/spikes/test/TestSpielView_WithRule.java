@@ -58,7 +58,17 @@ public class TestSpielView_WithRule {
 		JavaFXSpielfeldFeld feld1 = spielfeldView.getFeld1();
 		ComboBoxView comboBoxView =  spielView.getComboBoxView();
 		ComboBox<String> comboBox1 = comboBoxView.getComboBox1();
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		comboBox1.setValue(SpielfeldFeldZustand.BESETZT1.getName());
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		Assert.assertEquals(Color.BLUE,feld1.getCircleColor());
 	}
 	

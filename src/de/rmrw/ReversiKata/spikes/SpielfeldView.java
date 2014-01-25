@@ -2,6 +2,7 @@ package de.rmrw.ReversiKata.spikes;
 
 import de.rmrw.ReversiKata.model.IFSpielModel;
 import de.rmrw.ReversiKata.views.JavaFXSpielfeldFeld;
+import de.rmrw.ReversiKata.views.JavaFXSpielfeldFeldProperties;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -22,14 +23,15 @@ public class SpielfeldView extends GridPane {
 		this.setVgap(4);
 	
 		feld1 = new JavaFXSpielfeldFeld(model,         // Modell zum View
-								0,             // Zeile
-								0,             // Spalte
-								30,            // Groesse
-								GRUNDFARBE,    // Grundfarbe
-								FARBESPIELER1,     // Farbe Spieler1
-								FARBESPIELER2,     // Farbe Spieler2
-								ANGEDEUTETEFARBESPIELER1, // Angedeutete Farbe Sp1
-								ANGEDEUTETEFARBESPIELER2  // Angedeutete Farbe Sp2
+										0,             // Zeile
+										0,             // Spalte
+										new JavaFXSpielfeldFeldProperties( 30,            // Groesse
+																			GRUNDFARBE,    // Grundfarbe
+																			FARBESPIELER1,     // Farbe Spieler1
+																			FARBESPIELER2,     // Farbe Spieler2
+																			ANGEDEUTETEFARBESPIELER1, // Angedeutete Farbe Sp1
+																			ANGEDEUTETEFARBESPIELER2  // Angedeutete Farbe Sp2
+																			)
 								);
 		getChildren().add(feld1);
 		GridPane.setColumnIndex(feld1, 0);
@@ -38,12 +40,13 @@ public class SpielfeldView extends GridPane {
 		feld2 =  new JavaFXSpielfeldFeld(model,         // Modell zum View
 										0,             // Zeile
 										1,             // Spalte
-										30,            // Groesse
-										GRUNDFARBE,    // Grundfarbe
-										FARBESPIELER1,     // Farbe Spieler1
-										FARBESPIELER2,     // Farbe Spieler2
-										ANGEDEUTETEFARBESPIELER1, // Angedeutete Farbe Sp1
-										ANGEDEUTETEFARBESPIELER2  // Angedeutete Farbe Sp2
+										new JavaFXSpielfeldFeldProperties( 30,            // Groesse
+												GRUNDFARBE,    // Grundfarbe
+												FARBESPIELER1,     // Farbe Spieler1
+												FARBESPIELER2,     // Farbe Spieler2
+												ANGEDEUTETEFARBESPIELER1, // Angedeutete Farbe Sp1
+												ANGEDEUTETEFARBESPIELER2  // Angedeutete Farbe Sp2
+												)
 										);
 		getChildren().add(feld2);
 		GridPane.setColumnIndex(feld2, 1);
